@@ -2,7 +2,7 @@
 
 # Minimal Codex Recap
 
-**Um skill minúsculo e exclusivamente manual, inspirado no `/recap` do Claude Code, que resume a conversa atual do Codex em exatamente três linhas, em português ou inglês.**
+**Um skill minúsculo e exclusivamente manual, inspirado no `/recap` do Claude Code, que resume a conversa atual do Codex em exatamente três linhas.**
 
 [![Versão](https://img.shields.io/badge/versão-1.1.0-2563eb?style=flat-square)](CHANGELOG.md)
 [![Licença MIT](https://img.shields.io/badge/licença-MIT-16a34a?style=flat-square)](LICENSE)
@@ -146,8 +146,8 @@ alternativas úteis para quem precisa de fluxos mais abrangentes.
 
 ## Validação
 
-A versão 1.1.0 adiciona saída bilíngue sem mudar os limites de segurança nem o
-contrato de três linhas. O skill foi validado com:
+A versão 1.1.0 faz a saída acompanhar o idioma da conversa sem mudar os limites
+de segurança nem o contrato de três linhas. O skill foi validado com:
 
 - o `quick_validate.py` oficial do Codex;
 - cenários em português e inglês com contexto conhecido;

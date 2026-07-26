@@ -9,8 +9,8 @@ e o projeto adota [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
 ### Adicionado
 
-- Saída bilíngue: português para conversas em português e inglês para
-  conversas em inglês.
+- Saída ajustada ao idioma da conversa: português para conversas em português
+  e inglês para conversas em inglês.
 - Contrato completo de três linhas e respostas seguras literais nos dois
   idiomas.
 - Imagem demonstrativa própria para o README em inglês.

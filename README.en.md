@@ -2,7 +2,7 @@
 
 # Minimal Codex Recap
 
-**A tiny, explicit-only Codex skill inspired by Claude Code's `/recap`, summarizing the current conversation in exactly three lines in English or Portuguese.**
+**A tiny, explicit-only Codex skill inspired by Claude Code's `/recap`, summarizing the current conversation in exactly three lines.**
 
 [![Version](https://img.shields.io/badge/version-1.1.0-2563eb?style=flat-square)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/license-MIT-16a34a?style=flat-square)](LICENSE)
@@ -142,8 +142,9 @@ prior art and alternatives for users who need broader workflows.
 
 ## Validation
 
-Version 1.1.0 adds bilingual output without changing the security boundaries or
-the three-line contract. The skill was validated with:
+Version 1.1.0 makes the output follow the conversation language without
+changing the security boundaries or the three-line contract. The skill was
+validated with:
 
 - the official Codex `quick_validate.py`;
 - known-context scenarios in English and Portuguese;
