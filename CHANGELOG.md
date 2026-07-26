@@ -5,6 +5,14 @@ All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and the project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-07-26
+
+### Fixed
+
+- Moved the installable skill into `skills/recap/` so Skills CLI copies only
+  the two runtime skill files instead of repository documentation and tests.
+- Updated GitHub Actions to the official Node 24-based v7 releases.
+
 ## [1.0.0] - 2026-07-26
 
 ### Added
@@ -16,4 +24,5 @@ and the project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Dependency-free contract validation on Windows and Ubuntu.
 - English and Brazilian Portuguese documentation.
 
+[1.0.1]: https://github.com/LightWolfMan/minimal-codex-recap/releases/tag/v1.0.1
 [1.0.0]: https://github.com/LightWolfMan/minimal-codex-recap/releases/tag/v1.0.0

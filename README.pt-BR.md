@@ -4,7 +4,7 @@
 
 **Um skill minúsculo e exclusivamente manual que resume a conversa atual do Codex em exatamente três linhas.**
 
-[![Versão](https://img.shields.io/badge/versão-1.0.0-2563eb?style=flat-square)](CHANGELOG.md)
+[![Versão](https://img.shields.io/badge/versão-1.0.1-2563eb?style=flat-square)](CHANGELOG.md)
 [![Licença MIT](https://img.shields.io/badge/licença-MIT-16a34a?style=flat-square)](LICENSE)
 [![Dependências](https://img.shields.io/badge/dependências%20de%20execução-nenhuma-0f766e?style=flat-square)](#segurança-e-escopo)
 [![Invocação](https://img.shields.io/badge/invocação-%24recap-7c3aed?style=flat-square)](#uso)
@@ -61,16 +61,16 @@ lista de skills.
 ```powershell
 $destination = Join-Path $HOME ".codex\skills\recap"
 New-Item -ItemType Directory -Force -Path (Join-Path $destination "agents") | Out-Null
-Copy-Item .\SKILL.md (Join-Path $destination "SKILL.md")
-Copy-Item .\agents\openai.yaml (Join-Path $destination "agents\openai.yaml")
+Copy-Item .\skills\recap\SKILL.md (Join-Path $destination "SKILL.md")
+Copy-Item .\skills\recap\agents\openai.yaml (Join-Path $destination "agents\openai.yaml")
 ```
 
 ### Instalação manual no macOS ou Linux
 
 ```bash
 mkdir -p ~/.codex/skills/recap/agents
-cp SKILL.md ~/.codex/skills/recap/SKILL.md
-cp agents/openai.yaml ~/.codex/skills/recap/agents/openai.yaml
+cp skills/recap/SKILL.md ~/.codex/skills/recap/SKILL.md
+cp skills/recap/agents/openai.yaml ~/.codex/skills/recap/agents/openai.yaml
 ```
 
 ## Uso
@@ -122,7 +122,7 @@ alternativas úteis para quem precisa de fluxos mais abrangentes.
 
 ## Validação
 
-A versão 1.0.0 foi validada com:
+A versão 1.0.1 foi validada com:
 
 - o `quick_validate.py` oficial do Codex;
 - cenário com trabalho concluído, pendência e próxima ação conhecidas;
@@ -140,12 +140,12 @@ A integração contínua repete o teste no Windows e no Ubuntu.
 
 ## Integridade
 
-Hashes SHA-256 aprovados para a versão 1.0.0:
+Hashes SHA-256 aprovados para a versão 1.0.1:
 
 | Arquivo | SHA-256 |
 |---|---|
-| `SKILL.md` | `F4CE8B4B0B7DB1516A5C397FD3BAB904DC03C6DDF17CA3A4BF2222CA3D0E8467` |
-| `agents/openai.yaml` | `1A2DB46B36959BB31CC0F4046A59CC4CBFB77DB53030C0542D91B04ED9D188D8` |
+| `skills/recap/SKILL.md` | `F4CE8B4B0B7DB1516A5C397FD3BAB904DC03C6DDF17CA3A4BF2222CA3D0E8467` |
+| `skills/recap/agents/openai.yaml` | `1A2DB46B36959BB31CC0F4046A59CC4CBFB77DB53030C0542D91B04ED9D188D8` |
 
 ## Licença
 

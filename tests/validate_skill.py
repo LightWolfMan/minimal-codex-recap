@@ -9,8 +9,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SKILL = ROOT / "SKILL.md"
-OPENAI_YAML = ROOT / "agents" / "openai.yaml"
+SKILL = ROOT / "skills" / "recap" / "SKILL.md"
+OPENAI_YAML = ROOT / "skills" / "recap" / "agents" / "openai.yaml"
 
 EXPECTED_HASHES = {
     SKILL: "F4CE8B4B0B7DB1516A5C397FD3BAB904DC03C6DDF17CA3A4BF2222CA3D0E8467",

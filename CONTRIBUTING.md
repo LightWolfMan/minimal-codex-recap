@@ -22,8 +22,8 @@ Thanks for helping keep Minimal Codex Recap small and predictable.
    python tests/validate_skill.py
    ```
 
-4. If `SKILL.md` or `agents/openai.yaml` changes intentionally, update the
-   approved hashes in the test and both README files.
+4. If `skills/recap/SKILL.md` or `skills/recap/agents/openai.yaml` changes
+   intentionally, update the approved hashes in the test and both README files.
 5. Explain any behavioral change in `CHANGELOG.md`.
 
 Pull requests should include a concrete conversation example and the expected
