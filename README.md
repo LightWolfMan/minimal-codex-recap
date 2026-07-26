@@ -2,32 +2,47 @@
 
 # Minimal Codex Recap
 
-**A tiny, explicit-only Codex skill that recaps the current conversation in exactly three lines.**
+**Um skill minúsculo e exclusivamente manual, inspirado no `/recap` do Claude Code, que resume a conversa atual do Codex em exatamente três linhas.**
 
-[![Version](https://img.shields.io/badge/version-1.0.1-2563eb?style=flat-square)](CHANGELOG.md)
-[![License: MIT](https://img.shields.io/badge/license-MIT-16a34a?style=flat-square)](LICENSE)
-[![Runtime dependencies](https://img.shields.io/badge/runtime%20dependencies-none-0f766e?style=flat-square)](#security-and-scope)
-[![Invocation](https://img.shields.io/badge/invocation-%24recap-7c3aed?style=flat-square)](#usage)
-[![CI](https://img.shields.io/github/actions/workflow/status/LightWolfMan/minimal-codex-recap/validate.yml?branch=main&style=flat-square&label=validation)](https://github.com/LightWolfMan/minimal-codex-recap/actions)
+[![Versão](https://img.shields.io/badge/versão-1.0.2-2563eb?style=flat-square)](CHANGELOG.md)
+[![Licença MIT](https://img.shields.io/badge/licença-MIT-16a34a?style=flat-square)](LICENSE)
+[![Dependências](https://img.shields.io/badge/dependências%20de%20execução-nenhuma-0f766e?style=flat-square)](#segurança-e-escopo)
+[![Invocação](https://img.shields.io/badge/invocação-%24recap-7c3aed?style=flat-square)](#uso)
+[![Validação](https://img.shields.io/github/actions/workflow/status/LightWolfMan/minimal-codex-recap/validate.yml?branch=main&style=flat-square&label=validação)](https://github.com/LightWolfMan/minimal-codex-recap/actions)
 
-[Português do Brasil](README.pt-BR.md) · [Installation](#installation) · [How it differs](#how-it-differs) · [Security](#security-and-scope)
+**[In English](README.en.md)** · [Instalação](#instalação) · [Diferenças](#como-ele-se-diferencia) · [Segurança](#segurança-e-escopo)
 
 </div>
 
-![Minimal Codex Recap demo](assets/recap-demo.png)
+![Demonstração do Minimal Codex Recap](assets/recap-demo.png)
 
-## Why
+## Inspiração e atribuição
 
-Long agent conversations often end with a simple problem: it is hard to see
-where the work stopped, what remains, and what should happen next.
+O Minimal Codex Recap nasceu inspirado na experiência do `/recap` do
+[Claude Code](https://github.com/anthropics/claude-code): a ideia simples e
+útil de se reorientar rapidamente dentro de uma sessão. Esta implementação foi
+escrita do zero para o Codex, com um contrato próprio de três linhas, ativação
+exclusivamente manual e fonte limitada à conversa atual.
 
-`$recap` answers only those three questions. It does not build persistent
-memory, inspect the repository, run commands, call tools, or change state. It
-uses only context already present in the current Codex conversation.
+Este é um projeto independente. Ele **não é afiliado, endossado nem mantido
+pela Anthropic**. O crédito acima reconhece a inspiração do produto; não indica
+compatibilidade oficial nem reutilização de código. Há um
+[registro público do recurso no repositório do Claude Code](https://github.com/anthropics/claude-code/issues/48084).
 
-## Output contract
+## Por quê?
 
-Every invocation returns exactly:
+Depois de uma conversa longa com um agente, três informações costumam ficar
+espalhadas: onde o trabalho parou, o que ainda falta e o que deve acontecer em
+seguida.
+
+`$recap` responde somente essas três perguntas. Ele não cria memória
+persistente, não inspeciona o projeto, não executa comandos, não chama
+ferramentas e não altera estado. A única fonte é o contexto já presente na
+conversa atual do Codex.
+
+## Contrato de saída
+
+Toda invocação retorna exatamente:
 
 ```text
 Onde paramos: ...
@@ -35,8 +50,8 @@ Pendente: ...
 Próxima ação: ...
 ```
 
-If the conversation does not contain enough evidence, the skill uses honest
-fallbacks instead of inventing progress:
+Se não houver evidência suficiente na conversa, o skill usa respostas seguras
+em vez de inventar progresso:
 
 ```text
 Onde paramos: nenhum trabalho anterior foi identificado nesta conversa.
@@ -44,9 +59,7 @@ Pendente: nada identificado.
 Próxima ação: aguardar nova instrução.
 ```
 
-> Version 1.0 intentionally produces Brazilian Portuguese output.
-
-## Installation
+## Instalação
 
 ### Skills CLI
 
@@ -54,10 +67,10 @@ Próxima ação: aguardar nova instrução.
 npx skills add LightWolfMan/minimal-codex-recap@recap -g -y
 ```
 
-Restart Codex or open a new task after installation so the skill list is
-reloaded.
+Depois da instalação, reinicie o Codex ou abra uma tarefa nova para recarregar a
+lista de skills.
 
-### Manual installation on Windows
+### Instalação manual no Windows
 
 ```powershell
 $destination = Join-Path $HOME ".codex\skills\recap"
@@ -66,7 +79,7 @@ Copy-Item .\skills\recap\SKILL.md (Join-Path $destination "SKILL.md")
 Copy-Item .\skills\recap\agents\openai.yaml (Join-Path $destination "agents\openai.yaml")
 ```
 
-### Manual installation on macOS or Linux
+### Instalação manual no macOS ou Linux
 
 ```bash
 mkdir -p ~/.codex/skills/recap/agents
@@ -74,79 +87,83 @@ cp skills/recap/SKILL.md ~/.codex/skills/recap/SKILL.md
 cp skills/recap/agents/openai.yaml ~/.codex/skills/recap/agents/openai.yaml
 ```
 
-## Usage
+## Uso
 
-Open a new Codex task and type:
+Abra uma tarefa nova do Codex e digite:
 
 ```text
 $recap
 ```
 
-The `$` matters. This is a manually invoked skill, not a `/recap` slash
-command. `policy.allow_implicit_invocation` is explicitly set to `false`.
+O `$` é importante. Este é um skill invocado manualmente, não um comando
+`/recap`. A configuração `policy.allow_implicit_invocation` está explicitamente
+definida como `false`.
 
-The global Codex skills directory is shared by Codex App and Codex CLI, so the
-same installation works in both surfaces.
+O diretório global de skills é compartilhado pelo Codex App e pelo Codex CLI,
+portanto a mesma instalação funciona nas duas superfícies.
 
-## Security and scope
+## Segurança e escopo
 
-| Property | Behavior |
+| Propriedade | Comportamento |
 |---|---|
-| Invocation | Manual only through `$recap` |
-| Input source | Current conversation only |
-| File access | Forbidden by the skill |
-| Tool calls | Forbidden by the skill |
-| Persistent memory | Not used |
-| Network access | Not requested |
-| State changes | Forbidden by the skill |
-| Runtime dependencies | None |
-| Bundled executable code | None |
+| Ativação | Exclusivamente manual por `$recap` |
+| Fonte | Somente a conversa atual |
+| Leitura de arquivos | Proibida pelo skill |
+| Ferramentas | Proibidas pelo skill |
+| Memória persistente | Não utilizada |
+| Rede | Não solicitada |
+| Alterações de estado | Proibidas pelo skill |
+| Dependências de execução | Nenhuma |
+| Código executável incluído | Nenhum |
 
-This is an instruction-only skill. As with any LLM instruction, the repository
-documents and tests the intended contract; enforcement ultimately depends on
-the Codex runtime following the loaded skill.
+Este é um skill composto apenas por instruções. Como ocorre com qualquer
+instrução para um LLM, o repositório documenta e testa o contrato pretendido; a
+execução final depende de o ambiente do Codex seguir o skill carregado.
 
-## How it differs
+## Como ele se diferencia
 
-There are excellent projects with overlapping names, but different jobs:
+Existem projetos excelentes com nomes próximos, mas objetivos diferentes:
 
-| Project | Primary purpose | Persistent state | Tools or scripts | Typical output |
+| Projeto | Objetivo principal | Estado persistente | Ferramentas ou scripts | Saída típica |
 |---|---|---:|---:|---|
-| **Minimal Codex Recap** | Snapshot of the current conversation | No | No | Exactly three lines |
-| [AgentMemory Recap](https://github.com/rohitg00/agentmemory/blob/main/plugin/skills/recap/SKILL.md) | Summarize multiple stored agent sessions | Yes | Yes | Sessions grouped by date |
-| [BuilderIO Quick Recap](https://github.com/BuilderIO/skills/tree/main/skills/quick-recap) | Add a green/yellow/red status footer | No | Installer-managed instructions | One status line |
-| [Session Handoff](https://github.com/softaworks/agent-toolkit/tree/main/skills/session-handoff) | Save and resume detailed cross-session state | Yes | Yes | Handoff documents |
+| **Minimal Codex Recap** | Retrato da conversa atual | Não | Não | Exatamente três linhas |
+| [AgentMemory Recap](https://github.com/rohitg00/agentmemory/blob/main/plugin/skills/recap/SKILL.md) | Resumir várias sessões armazenadas | Sim | Sim | Sessões agrupadas por data |
+| [BuilderIO Quick Recap](https://github.com/BuilderIO/skills/tree/main/skills/quick-recap) | Adicionar rodapé verde/amarelo/vermelho | Não | Instruções gerenciadas pelo instalador | Uma linha de status |
+| [Session Handoff](https://github.com/softaworks/agent-toolkit/tree/main/skills/session-handoff) | Salvar e retomar contexto entre sessões | Sim | Sim | Documentos de transição |
 
-This project is not affiliated with those projects. They are linked as useful
-prior art and alternatives for users who need broader workflows.
+Este projeto não é afiliado a esses projetos. Eles aparecem como referências e
+alternativas úteis para quem precisa de fluxos mais abrangentes.
 
-## Validation
+## Validação
 
-Version 1.0.1 was validated with:
+A versão 1.0.2 altera somente uma expressão interna para “respostas seguras”;
+o contrato e o comportamento permanecem iguais. O skill foi validado com:
 
-- the official Codex `quick_validate.py`;
-- a completed-work scenario with known pending work and next action;
-- an insufficient-context scenario requiring literal fallbacks;
-- a fresh global Codex CLI smoke test in a read-only sandbox;
-- event inspection confirming no tool item was emitted during recap turns.
+- o `quick_validate.py` oficial do Codex;
+- cenário com trabalho concluído, pendência e próxima ação conhecidas;
+- cenário sem contexto suficiente, exigindo as respostas seguras literais;
+- teste rápido global em processo novo do Codex CLI e ambiente isolado somente leitura;
+- inspeção de eventos confirmando ausência de ferramentas nos turnos de recap.
 
-Run the repository's dependency-free contract checks:
+Execute os testes de contrato do repositório, sem dependências externas:
 
 ```bash
 python tests/validate_skill.py
 ```
 
-CI runs the same validation on Windows and Ubuntu.
+A integração contínua repete o teste no Windows e no Ubuntu.
 
-## Integrity
+## Integridade
 
-Approved SHA-256 hashes for v1.0.1:
+Hashes SHA-256 aprovados para a versão 1.0.2:
 
-| File | SHA-256 |
+| Arquivo | SHA-256 |
 |---|---|
-| `skills/recap/SKILL.md` | `F4CE8B4B0B7DB1516A5C397FD3BAB904DC03C6DDF17CA3A4BF2222CA3D0E8467` |
+| `skills/recap/SKILL.md` | `C2B3DF20255725547597A5A262727995D1A594F0B66539638D2F66895BA0D856` |
 | `skills/recap/agents/openai.yaml` | `1A2DB46B36959BB31CC0F4046A59CC4CBFB77DB53030C0542D91B04ED9D188D8` |
 
-## License
+## Licença
 
-[MIT](LICENSE) © 2026 LightWolfMan.
+[MIT](LICENSE) © 2026 LightWolfMan. Há uma
+[tradução informativa em português brasileiro](LICENSE.pt-BR.md); em caso de
+divergência, prevalece o texto canônico em inglês de `LICENSE`.

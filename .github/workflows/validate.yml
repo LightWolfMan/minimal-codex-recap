@@ -1,4 +1,4 @@
-name: Validate skill
+name: Validar skill
 
 on:
   push:
@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   contract:
-    name: Contract · ${{ matrix.os }}
+    name: Contrato · ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -19,13 +19,13 @@ jobs:
           - windows-latest
 
     steps:
-      - name: Check out repository
+      - name: Baixar repositório
         uses: actions/checkout@v7
 
-      - name: Set up Python
+      - name: Configurar Python
         uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
-      - name: Validate skill contract
+      - name: Validar contrato do skill
         run: python tests/validate_skill.py

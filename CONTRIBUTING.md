@@ -1,30 +1,31 @@
-# Contributing
+# Como contribuir
 
-Thanks for helping keep Minimal Codex Recap small and predictable.
+Obrigado por ajudar a manter o Minimal Codex Recap pequeno e previsível.
 
-## Principles
+## Princípios
 
-- Preserve explicit-only invocation.
-- Keep the skill free of runtime dependencies and executable code.
-- Use only the current conversation as source material.
-- Never add file reads, tool calls, persistent memory, network access, or state
-  changes to the recap workflow.
-- Keep the default output contract at exactly three lines.
-- Prefer honest fallbacks over inferred or invented progress.
+- Preserve a invocação exclusivamente manual.
+- Manter o skill sem dependências de execução nem código executável.
+- Usar somente a conversa atual como fonte.
+- Nunca adicionar leitura de arquivos, chamadas de ferramentas, memória
+  persistente, acesso à rede ou alterações de estado ao fluxo do recap.
+- Manter o contrato de saída padrão com exatamente três linhas.
+- Preferir respostas honestas a progresso inferido ou inventado.
 
-## Development
+## Desenvolvimento
 
-1. Create a branch from `main`.
-2. Make the smallest change that solves the problem.
-3. Run:
+1. Crie uma ramificação a partir de `main`.
+2. Faça a menor alteração que resolva o problema.
+3. Execute:
 
    ```bash
    python tests/validate_skill.py
    ```
 
-4. If `skills/recap/SKILL.md` or `skills/recap/agents/openai.yaml` changes
-   intentionally, update the approved hashes in the test and both README files.
-5. Explain any behavioral change in `CHANGELOG.md`.
+4. Se `skills/recap/SKILL.md` ou `skills/recap/agents/openai.yaml` mudar
+   intencionalmente, atualize os hashes aprovados no teste e nos dois arquivos
+   README.
+5. Explique qualquer mudança de comportamento em `CHANGELOG.md`.
 
-Pull requests should include a concrete conversation example and the expected
-three-line result.
+Solicitações de alteração devem incluir um exemplo concreto de conversa e o
+resultado esperado em três linhas.

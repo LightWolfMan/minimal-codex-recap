@@ -22,7 +22,8 @@ Fundamentar cada linha apenas em evidências da conversa. Não presumir que uma
 ação foi concluída, que um teste passou ou que um arquivo mudou quando isso não
 estiver explícito.
 
-Quando não houver evidência suficiente, usar estes fallbacks literalmente:
+Quando não houver evidência suficiente, usar estas respostas seguras
+literalmente:
 
 - `Onde paramos: nenhum trabalho anterior foi identificado nesta conversa.`
 - `Pendente: nada identificado.`

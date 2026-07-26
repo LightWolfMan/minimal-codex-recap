@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Dependency-free contract checks for Minimal Codex Recap."""
+"""Validações de contrato sem dependências do Minimal Codex Recap."""
 
 from __future__ import annotations
 
@@ -8,16 +8,16 @@ import re
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[1]
-SKILL = ROOT / "skills" / "recap" / "SKILL.md"
-OPENAI_YAML = ROOT / "skills" / "recap" / "agents" / "openai.yaml"
+RAIZ = Path(__file__).resolve().parents[1]
+SKILL = RAIZ / "skills" / "recap" / "SKILL.md"
+OPENAI_YAML = RAIZ / "skills" / "recap" / "agents" / "openai.yaml"
 
-EXPECTED_HASHES = {
-    SKILL: "F4CE8B4B0B7DB1516A5C397FD3BAB904DC03C6DDF17CA3A4BF2222CA3D0E8467",
+HASHES_ESPERADOS = {
+    SKILL: "C2B3DF20255725547597A5A262727995D1A594F0B66539638D2F66895BA0D856",
     OPENAI_YAML: "1A2DB46B36959BB31CC0F4046A59CC4CBFB77DB53030C0542D91B04ED9D188D8",
 }
 
-EXPECTED_FALLBACKS = (
+RESPOSTAS_SEGURAS_ESPERADAS = (
     "Onde paramos: nenhum trabalho anterior foi identificado nesta conversa.",
     "Pendente: nada identificado.",
     "Próxima ação: aguardar nova instrução.",
@@ -28,38 +28,38 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest().upper()
 
 
-def require(condition: bool, message: str) -> None:
-    if not condition:
-        raise AssertionError(message)
+def exigir(condicao: bool, mensagem: str) -> None:
+    if not condicao:
+        raise AssertionError(mensagem)
 
 
-def validate_skill() -> None:
-    skill_text = SKILL.read_text(encoding="utf-8")
-    yaml_text = OPENAI_YAML.read_text(encoding="utf-8")
+def validar_skill() -> None:
+    texto_skill = SKILL.read_text(encoding="utf-8")
+    texto_yaml = OPENAI_YAML.read_text(encoding="utf-8")
 
-    frontmatter = re.match(r"\A---\n(.*?)\n---\n", skill_text, re.DOTALL)
-    require(frontmatter is not None, "SKILL.md must start with YAML frontmatter")
-    metadata = frontmatter.group(1)
-    require(re.search(r"^name:\s*recap\s*$", metadata, re.MULTILINE) is not None, "skill name must be recap")
-    require(re.search(r"^description:\s*.+$", metadata, re.MULTILINE) is not None, "description is required")
+    frontmatter = re.match(r"\A---\n(.*?)\n---\n", texto_skill, re.DOTALL)
+    exigir(frontmatter is not None, "SKILL.md deve começar com frontmatter YAML")
+    metadados = frontmatter.group(1)
+    exigir(re.search(r"^name:\s*recap\s*$", metadados, re.MULTILINE) is not None, "o nome do skill deve ser recap")
+    exigir(re.search(r"^description:\s*.+$", metadados, re.MULTILINE) is not None, "a descrição é obrigatória")
 
-    require("Não chamar\nferramentas" in skill_text, "tool prohibition is missing")
-    require("não ler arquivos" in skill_text, "file-read prohibition is missing")
-    require("não consultar memória persistente" in skill_text, "persistent-memory prohibition is missing")
-    require("não alterar\nestado" in skill_text, "state-change prohibition is missing")
-    require("Produzir exatamente três linhas" in skill_text, "three-line output contract is missing")
+    exigir("Não chamar\nferramentas" in texto_skill, "falta a proibição de ferramentas")
+    exigir("não ler arquivos" in texto_skill, "falta a proibição de leitura de arquivos")
+    exigir("não consultar memória persistente" in texto_skill, "falta a proibição de memória persistente")
+    exigir("não alterar\nestado" in texto_skill, "falta a proibição de alteração de estado")
+    exigir("Produzir exatamente três linhas" in texto_skill, "falta o contrato de saída em três linhas")
 
-    for fallback in EXPECTED_FALLBACKS:
-        require(fallback in skill_text, f"fallback missing: {fallback}")
+    for resposta_segura in RESPOSTAS_SEGURAS_ESPERADAS:
+        exigir(resposta_segura in texto_skill, f"falta resposta segura: {resposta_segura}")
 
-    require("allow_implicit_invocation: false" in yaml_text, "implicit invocation must remain disabled")
-    require('default_prompt: "Use $recap' in yaml_text, "default prompt must mention $recap")
+    exigir("allow_implicit_invocation: false" in texto_yaml, "a invocação implícita deve continuar desativada")
+    exigir('default_prompt: "Use $recap' in texto_yaml, "o prompt padrão deve mencionar $recap")
 
-    for path, expected in EXPECTED_HASHES.items():
-        actual = sha256(path)
-        require(actual == expected, f"SHA-256 mismatch for {path.name}: {actual}")
+    for caminho, esperado in HASHES_ESPERADOS.items():
+        atual = sha256(caminho)
+        exigir(atual == esperado, f"SHA-256 divergente em {caminho.name}: {atual}")
 
 
 if __name__ == "__main__":
-    validate_skill()
-    print("Minimal Codex Recap contract validation passed.")
+    validar_skill()
+    print("Validação de contrato do Minimal Codex Recap concluída com sucesso.")
