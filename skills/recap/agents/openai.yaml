@@ -1,6 +1,6 @@
 interface:
   display_name: "Recap"
-  short_description: "Recapitula a conversa em três linhas"
+  short_description: "Recapitula em português ou inglês"
   default_prompt: "Use $recap para dizer onde paramos, o que está pendente e a próxima ação."
 
 policy:

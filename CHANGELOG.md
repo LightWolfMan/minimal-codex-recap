@@ -5,6 +5,25 @@ Todas as alterações relevantes deste projeto são documentadas neste arquivo.
 O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/)
 e o projeto adota [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.1.0] - 2026-07-26
+
+### Adicionado
+
+- Saída bilíngue: português para conversas em português e inglês para
+  conversas em inglês.
+- Contrato completo de três linhas e respostas seguras literais nos dois
+  idiomas.
+- Imagem demonstrativa própria para o README em inglês.
+- Testes estáticos para seleção de idioma, rótulos e respostas seguras em
+  português e inglês.
+
+### Preservado
+
+- Invocação exclusivamente manual por `$recap`.
+- Fonte limitada à conversa atual.
+- Ausência de ferramentas, leitura de arquivos, memória persistente, rede,
+  alterações de estado, scripts e dependências de execução.
+
 ## [1.0.2] - 2026-07-26
 
 ### Alterado
@@ -46,6 +65,7 @@ e o projeto adota [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 - Validação de contrato sem dependências no Windows e no Ubuntu.
 - Documentação em português brasileiro e inglês.
 
+[1.1.0]: https://github.com/LightWolfMan/minimal-codex-recap/releases/tag/v1.1.0
 [1.0.2]: https://github.com/LightWolfMan/minimal-codex-recap/releases/tag/v1.0.2
 [1.0.1]: https://github.com/LightWolfMan/minimal-codex-recap/releases/tag/v1.0.1
 [1.0.0]: https://github.com/LightWolfMan/minimal-codex-recap/releases/tag/v1.0.0

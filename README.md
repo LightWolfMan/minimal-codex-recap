@@ -2,9 +2,9 @@
 
 # Minimal Codex Recap
 
-**Um skill minúsculo e exclusivamente manual, inspirado no `/recap` do Claude Code, que resume a conversa atual do Codex em exatamente três linhas.**
+**Um skill minúsculo e exclusivamente manual, inspirado no `/recap` do Claude Code, que resume a conversa atual do Codex em exatamente três linhas, em português ou inglês.**
 
-[![Versão](https://img.shields.io/badge/versão-1.0.2-2563eb?style=flat-square)](CHANGELOG.md)
+[![Versão](https://img.shields.io/badge/versão-1.1.0-2563eb?style=flat-square)](CHANGELOG.md)
 [![Licença MIT](https://img.shields.io/badge/licença-MIT-16a34a?style=flat-square)](LICENSE)
 [![Dependências](https://img.shields.io/badge/dependências%20de%20execução-nenhuma-0f766e?style=flat-square)](#segurança-e-escopo)
 [![Invocação](https://img.shields.io/badge/invocação-%24recap-7c3aed?style=flat-square)](#uso)
@@ -42,7 +42,8 @@ conversa atual do Codex.
 
 ## Contrato de saída
 
-Toda invocação retorna exatamente:
+Toda invocação retorna exatamente três linhas no idioma dominante da conversa.
+Em português:
 
 ```text
 Onde paramos: ...
@@ -58,6 +59,11 @@ Onde paramos: nenhum trabalho anterior foi identificado nesta conversa.
 Pendente: nada identificado.
 Próxima ação: aguardar nova instrução.
 ```
+
+Em uma conversa em inglês, o skill usa os rótulos e as respostas seguras em
+inglês, sem misturar idiomas. Os exemplos completos estão em
+**[In English](README.en.md)**. Quando não houver contexto suficiente para
+identificar o idioma, o padrão é português.
 
 ## Instalação
 
@@ -99,6 +105,9 @@ O `$` é importante. Este é um skill invocado manualmente, não um comando
 `/recap`. A configuração `policy.allow_implicit_invocation` está explicitamente
 definida como `false`.
 
+O idioma é escolhido pelas mensagens substantivas mais recentes do usuário:
+português para conversas em português e inglês para conversas em inglês.
+
 O diretório global de skills é compartilhado pelo Codex App e pelo Codex CLI,
 portanto a mesma instalação funciona nas duas superfícies.
 
@@ -108,6 +117,7 @@ portanto a mesma instalação funciona nas duas superfícies.
 |---|---|
 | Ativação | Exclusivamente manual por `$recap` |
 | Fonte | Somente a conversa atual |
+| Idioma | Português ou inglês, conforme a conversa |
 | Leitura de arquivos | Proibida pelo skill |
 | Ferramentas | Proibidas pelo skill |
 | Memória persistente | Não utilizada |
@@ -136,12 +146,12 @@ alternativas úteis para quem precisa de fluxos mais abrangentes.
 
 ## Validação
 
-A versão 1.0.2 altera somente uma expressão interna para “respostas seguras”;
-o contrato e o comportamento permanecem iguais. O skill foi validado com:
+A versão 1.1.0 adiciona saída bilíngue sem mudar os limites de segurança nem o
+contrato de três linhas. O skill foi validado com:
 
 - o `quick_validate.py` oficial do Codex;
-- cenário com trabalho concluído, pendência e próxima ação conhecidas;
-- cenário sem contexto suficiente, exigindo as respostas seguras literais;
+- cenários em português e inglês com contexto conhecido;
+- cenários em português e inglês sem contexto suficiente;
 - teste rápido global em processo novo do Codex CLI e ambiente isolado somente leitura;
 - inspeção de eventos confirmando ausência de ferramentas nos turnos de recap.
 
@@ -155,12 +165,12 @@ A integração contínua repete o teste no Windows e no Ubuntu.
 
 ## Integridade
 
-Hashes SHA-256 aprovados para a versão 1.0.2:
+Hashes SHA-256 aprovados para a versão 1.1.0:
 
 | Arquivo | SHA-256 |
 |---|---|
-| `skills/recap/SKILL.md` | `C2B3DF20255725547597A5A262727995D1A594F0B66539638D2F66895BA0D856` |
-| `skills/recap/agents/openai.yaml` | `1A2DB46B36959BB31CC0F4046A59CC4CBFB77DB53030C0542D91B04ED9D188D8` |
+| `skills/recap/SKILL.md` | `3EEB98C2DED080701B4C6440641258F358745DDB65B89FF6823C3BC80073A604` |
+| `skills/recap/agents/openai.yaml` | `43493E9963711B7F4342B6A6AB50B4F2922CE35C78CB2E9C40B7CB73FA18E756` |
 
 ## Licença
 

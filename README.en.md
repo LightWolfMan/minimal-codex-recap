@@ -2,9 +2,9 @@
 
 # Minimal Codex Recap
 
-**A tiny, explicit-only Codex skill inspired by Claude Code's `/recap`, summarizing the current Codex conversation in exactly three lines.**
+**A tiny, explicit-only Codex skill inspired by Claude Code's `/recap`, summarizing the current conversation in exactly three lines in English or Portuguese.**
 
-[![Version](https://img.shields.io/badge/version-1.0.2-2563eb?style=flat-square)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.1.0-2563eb?style=flat-square)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/license-MIT-16a34a?style=flat-square)](LICENSE)
 [![Runtime dependencies](https://img.shields.io/badge/runtime%20dependencies-none-0f766e?style=flat-square)](#security-and-scope)
 [![Invocation](https://img.shields.io/badge/invocation-%24recap-7c3aed?style=flat-square)](#usage)
@@ -14,7 +14,7 @@
 
 </div>
 
-![Minimal Codex Recap demo](assets/recap-demo.png)
+![Minimal Codex Recap demo](assets/recap-demo-en.png)
 
 ## Inspiration and attribution
 
@@ -40,24 +40,27 @@ uses only context already present in the current Codex conversation.
 
 ## Output contract
 
-Every invocation returns exactly:
+Every invocation returns exactly three lines in the dominant language of the
+conversation. In English:
 
 ```text
-Onde paramos: ...
-Pendente: ...
-Próxima ação: ...
+Where we stopped: ...
+Pending: ...
+Next action: ...
 ```
 
 If the conversation does not contain enough evidence, the skill uses honest
 fallbacks instead of inventing progress:
 
 ```text
-Onde paramos: nenhum trabalho anterior foi identificado nesta conversa.
-Pendente: nada identificado.
-Próxima ação: aguardar nova instrução.
+Where we stopped: no previous work was identified in this conversation.
+Pending: nothing identified.
+Next action: wait for a new instruction.
 ```
 
-> Version 1.0 intentionally produces Brazilian Portuguese output.
+In a Portuguese conversation, the skill uses the equivalent Portuguese labels
+and fallbacks without mixing languages. If there is not enough context to
+identify the language, Brazilian Portuguese is the default.
 
 ## Installation
 
@@ -98,6 +101,9 @@ $recap
 The `$` matters. This is a manually invoked skill, not a `/recap` slash
 command. `policy.allow_implicit_invocation` is explicitly set to `false`.
 
+The language is selected from the user's latest substantive messages: English
+for English conversations and Portuguese for Portuguese conversations.
+
 The global Codex skills directory is shared by Codex App and Codex CLI, so the
 same installation works in both surfaces.
 
@@ -107,6 +113,7 @@ same installation works in both surfaces.
 |---|---|
 | Invocation | Manual only through `$recap` |
 | Input source | Current conversation only |
+| Output language | English or Portuguese, matching the conversation |
 | File access | Forbidden by the skill |
 | Tool calls | Forbidden by the skill |
 | Persistent memory | Not used |
@@ -135,13 +142,12 @@ prior art and alternatives for users who need broader workflows.
 
 ## Validation
 
-Version 1.0.2 changes only the internal wording from “fallbacks” to the
-Portuguese “respostas seguras”; the contract and behavior remain unchanged.
-The skill was validated with:
+Version 1.1.0 adds bilingual output without changing the security boundaries or
+the three-line contract. The skill was validated with:
 
 - the official Codex `quick_validate.py`;
-- a completed-work scenario with known pending work and next action;
-- an insufficient-context scenario requiring literal fallbacks;
+- known-context scenarios in English and Portuguese;
+- insufficient-context scenarios in English and Portuguese;
 - a fresh global Codex CLI smoke test in a read-only sandbox;
 - event inspection confirming no tool item was emitted during recap turns.
 
@@ -155,12 +161,12 @@ CI runs the same validation on Windows and Ubuntu.
 
 ## Integrity
 
-Approved SHA-256 hashes for v1.0.2:
+Approved SHA-256 hashes for v1.1.0:
 
 | File | SHA-256 |
 |---|---|
-| `skills/recap/SKILL.md` | `C2B3DF20255725547597A5A262727995D1A594F0B66539638D2F66895BA0D856` |
-| `skills/recap/agents/openai.yaml` | `1A2DB46B36959BB31CC0F4046A59CC4CBFB77DB53030C0542D91B04ED9D188D8` |
+| `skills/recap/SKILL.md` | `3EEB98C2DED080701B4C6440641258F358745DDB65B89FF6823C3BC80073A604` |
+| `skills/recap/agents/openai.yaml` | `43493E9963711B7F4342B6A6AB50B4F2922CE35C78CB2E9C40B7CB73FA18E756` |
 
 ## License
 
